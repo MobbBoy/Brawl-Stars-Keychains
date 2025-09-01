@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brawl Stars Keychains</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f8f8f8;
+      color: #333;
+    }
+    header {
+      background: #ffcc00;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .product {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+    .product img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .product h3 {
+      margin: 0.5rem 0;
+    }
+    .price {
+      font-weight: bold;
+      color: #e63946;
+    }
+    .contact {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .contact h2 {
+      margin-bottom: 1rem;
+    }
+    .contact p {
+      margin: 0.3rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Brawl Stars Keychains</h1>
+    <p>Fan-made keychains — $15 each</p>
+  </header>
+
+  <section class="products">
+    <div class="product">
+      <img src="images/mrp.jpg" alt="Mr. P Keychain">
+      <h3>Mr. P</h3>
+      <p class="price">$15</p>
+    </div>
+    <div class="product">
+      <img src="images/crow.jpg" alt="Crow Keychain">
+      <h3>Crow</h3>
+      <p class="price">$15</p>
+    </div>
+    <div class="product">
+      <img src="images/leon.jpg" alt="Leon Keychain">
+      <h3>Leon</h3>
+      <p class="price">$15</p>
+    </div>
+    <div class="product">
+      <img src="images/penny.jpg" alt="Penny Keychain">
+      <h3>Penny</h3>
+      <p class="price">$15</p>
+    </div>
+    <div class="product">
+      <img src="images/bea.jpg" alt="Bea Keychain">
+      <h3>Bea</h3>
+      <p class="price">$15</p>
+    </div>
+    <div class="product">
+      <img src="images/jacky.jpg" alt="Jacky Keychain">
+      <h3>Jacky</h3>
+      <p class="price">$15</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>How to Order</h2>
+    <p>Email me: <strong>youremail@example.com</strong></p>
+    <p>Or message me on Instagram: <strong>@yourusername</strong></p>
+    <p>Please include which keychain(s) you want.</p>
+  </section>
+
+  <footer>
+    <p>Fan-made merchandise. Not affiliated with Supercell.</p>
+  </footer>
+
+</body>
+</html>
