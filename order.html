@@ -1,154 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Keychains</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff4b4b, #b22222);
-      margin: 0;
-      color: #333;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Keychains</title>
+<style>
+  /* === GENERAL STYLING === */
+  body {
+    font-family: "Poppins", Arial, sans-serif;
+    margin: 0;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background-size: 400% 400%;
+    animation: gradientFlow 10s ease infinite;
+  }
 
-      /* Make footer stick to bottom */
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-    /* ----- HEADER ----- */
-    header {
-      background: linear-gradient(90deg, #ffdd00, #ff9900);
-      text-align: center;
-      padding: 2rem 1rem;
-      position: relative;
-      overflow: hidden;
-      color: #222;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-      animation: bounce 2s infinite;
-    }
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    header::after {
-      content: "⭐";
-      font-size: 2rem;
-      position: absolute;
-      top: 15px;
-      left: -50px;
-      animation: stars 12s linear infinite;
-    }
-    @keyframes stars {
-      from { left: -50px; }
-      to { left: 110%; }
-    }
+  /* === FLOATING STARS === */
+  .stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: fall 6s linear infinite;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-10px); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
 
-    /* ----- ORDER BOX ----- */
-    .order-box {
-      max-width: 650px;
-      margin: 2rem auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 3px solid transparent;
-      background-clip: padding-box;
-      flex: 1; /* pushes footer down */
-    }
-    .order-box:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-      border-color: #ff9900;
-    }
-    .order-box h2 {
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-      color: #e63946;
-    }
-    .order-box p {
-      margin: 0.5rem 0;
-    }
-    .email-link {
-      display: inline-block;
-      margin-top: 1rem;
-      background: #e63946;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 1.2rem;
-      transition: 0.3s;
-    }
-    .email-link:hover {
-      background: #ff4b4b;
-      transform: scale(1.08);
-    }
-    ul {
-      text-align: left;
-      margin-top: 1rem;
-      padding-left: 1.2rem;
-    }
-    ul li {
-      margin: 0.4rem 0;
-    }
+  /* === HEADER === */
+  header {
+    background: linear-gradient(90deg, #ffcc00, #ff6a00);
+    color: #111;
+    text-align: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
+    animation: bounce 2s infinite;
+  }
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
 
-    /* ----- FOOTER ----- */
-    footer {
-      background: black;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-    }
-  </style>
+  /* === ORDER BOX === */
+  .order-box {
+    max-width: 700px;
+    margin: 2rem auto;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    z-index: 1;
+  }
+  .order-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 30px rgba(255,255,0,0.5);
+    border-image: linear-gradient(45deg, #00ffff, #ffcc00) 1;
+  }
+  .order-box h2 {
+    color: #0072ff;
+    font-size: 1.8rem;
+  }
+
+  /* === BUTTONS === */
+  .copy-btn, .email-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+  }
+
+  .copy-btn {
+    background: linear-gradient(90deg, #00ffff, #0072ff);
+    color: #111;
+    box-shadow: 0 0 10px rgba(0,255,255,0.7);
+  }
+  .copy-btn:hover {
+    background: linear-gradient(90deg, #00ffcc, #33ccff);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0,255,255,0.9);
+  }
+
+  .email-link {
+    background: linear-gradient(90deg, #ffcc00, #ff6a00);
+    color: #111;
+    box-shadow: 0 0 10px rgba(255,200,0,0.7);
+    animation: pulse 1.5s infinite alternate;
+  }
+  .email-link:hover {
+    background: linear-gradient(90deg, #ffee58, #ff8f00);
+    transform: scale(1.1);
+  }
+  @keyframes pulse {
+    from { box-shadow: 0 0 10px rgba(255,255,255,0.4); }
+    to { box-shadow: 0 0 25px rgba(255,255,255,1); }
+  }
+
+  ul {
+    text-align: left;
+    margin-top: 1rem;
+    padding-left: 1.2rem;
+  }
+
+  /* === FOOTER === */
+  footer {
+    text-align: center;
+    background: #111;
+    color: #ddd;
+    padding: 1rem;
+    margin-top: auto;
+  }
+
+  /* === POPUP === */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #00ffcc;
+    color: #111;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0,255,255,0.5);
+    z-index: 999;
+    animation: fadein 0.5s;
+  }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
 </head>
 <body>
+  <div class="stars"></div>
 
-<header>
-  <h1>Place Your Order</h1>
-  <p>Send us your order details by email</p>
-</header>
+  <header>
+    <h1>Place Your Order 🌟</h1>
+    <p>Send us your order details by email</p>
+  </header>
 
-<div class="order-box">
-  <h2>How to Order</h2>
-  <p>Please copy the template below and send it to:</p>
-  <p><strong>📧 lukeyu0914@gmail.com</strong></p>
+  <div class="order-box">
+    <h2>How to Order</h2>
+    <p>Please copy the template below and send it to:</p>
+    <p><strong>📧 lukeyu0914@gmail.com</strong></p>
 
-  <h3>Order Template:</h3>
-  <ul>
-    <li>Full Name (optional): __________</li>
-    <li>Email: __________</li>
-    <li>Phone Number: __________</li>
-    <li>Shipping Address: __________</li>
-    <li>Keychains: __________</li>
-    <li>Additional Notes: __________</li>
-  </ul>
+    <h3>Order Template:</h3>
+    <ul id="order-template">
+      <li>Full Name (optional): __________</li>
+      <li>Email: __________</li>
+      <li>Phone Number: __________</li>
+      <li>Shipping Address: __________</li>
+      <li>Keychains: __________</li>
+      <li>Additional Notes: __________</li>
+    </ul>
 
-  <a class="email-link" href="mailto:lukeyu0914@gmail.com?subject=Keychain Order&body=Full%20Name:%0D%0AEmail:%0D%0APhone:%0D%0AAddress:%0D%0AKeychains:%0D%0ANotes:">
-    Send Order by Email
-  </a>
+    <button class="copy-btn" onclick="copyTemplate()">📋 Copy Template</button>
 
-  <p style="margin-top: 1rem;">📦 $5 delivery fee applies to all orders.</p>
-</div>
+    <br>
 
-<footer>
-  Fan-made keychains — Not affiliated with Supercell
-</footer>
+    <a class="email-link"
+       href="mailto:lukeyu0914@gmail.com?subject=Keychain Order&body=Full%20Name:%0D%0AEmail:%0D%0APhone:%0D%0AAddress:%0D%0AKeychains:%0D%0ANotes:">
+       ✉️ Send Order by Email
+    </a>
 
+    <p style="margin-top: 1rem; font-weight: bold; color: #0072ff;">
+      💵 Cash Only • 📦 $5 Delivery Fee • 💫 Buy 5+ = Free Delivery!
+    </p>
+  </div>
+
+  <footer>
+    Fan-made keychains — Not affiliated with Supercell © <span id="year"></span>
+  </footer>
+
+  <div id="popup" class="popup">✅ Template copied!</div>
+
+  <script>
+    // Copy Template
+    function copyTemplate() {
+      const template = document.getElementById("order-template").innerText;
+      navigator.clipboard.writeText(template).then(() => {
+        const popup = document.getElementById("popup");
+        popup.style.display = "block";
+        setTimeout(() => popup.style.display = "none", 2000);
+      });
+    }
+
+    // Auto Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Floating stars
+    const starsContainer = document.querySelector(".stars");
+    for (let i = 0; i < 30; i++) {
+      const star = document.createElement("div");
+      star.classList.add("star");
+      star.style.left = Math.random() * 100 + "%";
+      star.style.animationDelay = Math.random() * 6 + "s";
+      star.style.width = star.style.height = Math.random() * 5 + 3 + "px";
+      star.style.background = `hsl(${Math.random() * 360}, 100%, 80%)`;
+      starsContainer.appendChild(star);
+    }
+  </script>
 </body>
 </html>
