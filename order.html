@@ -94,57 +94,50 @@
       margin: 0.6rem 0;
     }
 
-    /* COPY BUTTON */
-    .copy-btn {
-      background: #3ca8ff;
-      color: white;
-      padding: 0.7rem 1.2rem;
-      border-radius: 8px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: 0.3s;
+    /* FORM STYLING */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
-    .copy-btn:hover {
-      background: #5ec0ff;
-      transform: scale(1.08);
+    input, textarea, select {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      background: #0f1f4a;
+      color: #fff;
+      border: 2px solid #ffcc00;
+      transition: 0.2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 0 10px #ffcc00;
     }
 
-    /* EMAIL BUTTON */
-    .email-link {
-      display: inline-block;
-      margin-top: 1.5rem;
+    /* SUBMIT BUTTON */
+    button {
       background: #ff3b30;
       color: white;
-      padding: 1rem 2rem;
+      padding: 1rem;
       border-radius: 10px;
-      text-decoration: none;
-      font-size: 1.2rem;
+      border: none;
+      font-size: 1.1rem;
       font-weight: bold;
+      cursor: pointer;
       transition: 0.3s;
       animation: pulse 1.5s infinite alternate;
     }
-    .email-link:hover {
+    button:hover {
       background: #ff665a;
-      transform: scale(1.08);
+      transform: scale(1.05);
     }
     @keyframes pulse {
       from { box-shadow: 0 0 10px rgba(255, 204, 0, 0.6); }
       to { box-shadow: 0 0 25px rgba(255, 204, 0, 1); }
     }
 
-    ul {
-      text-align: left;
-      margin-top: 1rem;
-      padding-left: 1.2rem;
-    }
-    ul li {
-      margin: 0.4rem 0;
-      color: #e6e6e6;
-    }
-
-    /* FOOTER */
     footer {
       background: #000814;
       color: #ccc;
@@ -153,26 +146,6 @@
       font-size: 0.9rem;
       z-index: 2;
       border-top: 2px solid #ffcc00;
-    }
-
-    /* POPUP */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #ffcc00;
-      color: #0a1e40;
-      padding: 0.8rem 1.2rem;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-      z-index: 999;
-      animation: fadein 0.5s;
-    }
-    @keyframes fadein {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -185,47 +158,40 @@
   </header>
 
   <div class="order-box">
-    <h2>How to Order</h2>
-    <p>Please copy the template below and send it to:</p>
-    <p><strong>📧 lukeyu0914@gmail.com</strong></p>
+    <h2>Order Form</h2>
+    <p>Fill out this form and we’ll get back to you soon!</p>
 
-    <h3>Order Template:</h3>
-    <ul id="order-template">
-      <li>Full Name (optional): __________</li>
-      <li>Email: __________</li>
-      <li>Phone Number: __________</li>
-      <li>Shipping Address: __________</li>
-      <li>Keychains: __________</li>
-      <li>Additional Notes: __________</li>
-    </ul>
+    <form action="https://formspree.io/f/xanpkbal" method="POST">
+      <input type="text" name="Full Name" placeholder="Full Name (optional)" />
+      <input type="email" name="Email" placeholder="Email (required)" required />
+      <input type="tel" name="Phone" placeholder="Phone Number" />
+      <textarea name="Address" placeholder="Shipping Address" required></textarea>
+      <textarea name="Keychains" placeholder="Which keychains would you like?" required></textarea>
+      <textarea name="Notes" placeholder="Additional Notes"></textarea>
 
-    <button class="copy-btn" onclick="copyTemplate()">📋 Copy Template</button>
+      <select name="Platform" required>
+        <option value="">Select Platform</option>
+        <option value="Instagram">Instagram</option>
+        <option value="TikTok">TikTok</option>
+        <option value="Other">Other</option>
+      </select>
 
-    <a class="email-link" href="mailto:lukeyu0914@gmail.com?subject=Keychain Order&body=Full%20Name:%0D%0AEmail:%0D%0APhone:%0D%0AAddress:%0D%0AKeychains:%0D%0ANotes:">
-      ✉️ Send Order by Email
-    </a>
+      <p style="color:#ffcc00; font-weight:bold;">
+        💵 Cash Only • 📦 $5 Delivery Fee • ⭐ Buy 5+ = Free Delivery!
+      </p>
 
-    <p style="margin-top: 1rem; color:#ffcc00;">💵 Cash Only • 📦 $5 Delivery Fee • ⭐ Buy 5+ = Free Delivery!</p>
+      <button type="submit">✉️ Send Order</button>
+    </form>
   </div>
 
   <footer>
     <p>Fan-made keychains — Not affiliated with Supercell © <span id="year"></span></p>
   </footer>
 
-  <div id="popup" class="popup">✅ Template copied!</div>
-
   <script>
-    function copyTemplate() {
-      const template = document.getElementById("order-template").innerText;
-      navigator.clipboard.writeText(template).then(() => {
-        const popup = document.getElementById("popup");
-        popup.style.display = "block";
-        setTimeout(() => popup.style.display = "none", 2000);
-      });
-    }
-
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // Floating stars animation
     const starsContainer = document.querySelector(".stars");
     for (let i = 0; i < 25; i++) {
       const star = document.createElement("div");
